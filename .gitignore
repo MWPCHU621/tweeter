@@ -1,3 +1,6 @@
 node_modules/
 .env
 .DS_Store
+
+#the package-lock.json page.
+package-lock.json
