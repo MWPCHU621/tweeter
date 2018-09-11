@@ -70,7 +70,8 @@ function createTweetElement(tweet) {
   const iconImg = tweet.user.avatars.small;
   const handleName = tweet.user.handle;
   const tweetContent = tweet.content.text;
-  const tweetTime = tweet.created_at;
+  const tweetTime = getDays(tweet.created_at);
+  //console.log(tweet.created_at);
 
   // overarching elements for the tweet container
   const $header = $('<header>').addClass('tweet-header');
@@ -104,6 +105,27 @@ function createTweetElement(tweet) {
   $tweet.append($footer);
 
   return $tweet;
+}
+
+function getDays(timeString) {
+  let ms = Number(timeString);
+  let now = Date.now();
+  let difference = now - ms;
+  let fullDaysSinceEpoch = Math.floor(difference/8.64e7);
+
+  // calculates how many days or weeks or months or years depending on
+  // fullDaysSinceEpoch number.
+  if (fullDaysSinceEpoch > 365) {
+    return Math.floor(fullDaysSinceEpoch / 365) + ' years ago';
+  } else if (fullDaysSinceEpoch > 31) {
+    return Math.floor(fullDaysSinceEpoch / 365) + ' months ago';
+  } else if (fullDaysSinceEpoch > 7) {
+    return Math.floor(fullDaysSinceEpoch / 365) + ' weeks ago';
+  } else {
+    return Math.floor(fullDaysSinceEpoch / 365) + ' days ago';
+  }
+
+
 }
 
 // const $tweet = createTweetElement(tweetData);
