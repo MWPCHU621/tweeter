@@ -1,0 +1,83 @@
+/*ENTIRE NEW TWEET CONTAINER RELATED CSS*/
+.tweet {
+  border: 1px solid lightgrey;
+  border-radius:5px;
+  margin-top: 2em;
+
+}
+
+/*HEADER RELATED CSS*/
+.tweet-header {
+  padding: 10px;
+  background-color: lightgrey;
+  position:relative;
+  height: 70px;
+  opacity: 0.6;
+  transition: 0.1s;
+}
+
+.tweet-header__handle-name {
+  margin: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  /*font-size: 0.85rem;*/
+}
+
+.tweet-header__user-name {
+  margin: 0;
+  position: absolute;
+  top: 10px;
+  left: 70px;
+  font-size: 1.5rem;
+}
+
+.tweet-header__profile-pic {
+  border: 1px solid grey;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  border-radius: 5px;
+}
+
+/*TWEET CONTENT RELATED CSS*/
+.tweet-content {
+  margin: 0;
+  padding: 15px 0 15px 10px;
+}
+
+/*FOOTER RELATED CSS*/
+.tweet-footer {
+  display: flex;
+  border-top: 1px solid lightgrey;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px 5px 10px;
+
+}
+.tweet-footer__timestamp {
+  font-size: 0.75rem;
+}
+.tweet-footer__social-icons {
+  opacity: 0;
+  transition: opacity .1s linear;
+}
+
+.tweet-footer__social-icons .fa-retweet {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/*HOVER CSS*/
+.tweet:hover header{
+  opacity: 1;
+}
+
+.tweet:hover {
+  border: 1px solid grey;
+}
+
+.tweet:hover .tweet-footer__social-icons {
+  opacity: 1;
+}
