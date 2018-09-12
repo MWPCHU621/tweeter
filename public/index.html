@@ -27,9 +27,14 @@
   <body>
 
     <!-- Top nav bar (fixed) -->
-    <nav id="nav-bar">
-      <img class="logo" src="/images/bird.png">
-      <span class="header">Tweeter</span>
+    <nav class="nav-bar">
+      <img class="nav-bar__logo float-left" src="/images/bird.png">
+      <span class="nav-bar__header float-left">Tweeter</span>
+      <div class="nav-bar__buttons float-right">
+        <button id="hide-tweet-form" class="nav-bar__compose-tweet" type="button" >
+          <i class="far fa-edit"></i> Compose
+        </button>
+      </div>
     </nav>
 
 
