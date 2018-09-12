@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $('.new-tweet textarea').on("input", function(e) {
     const length = $('.new-tweet textarea').val().length;
-    const counter = $('.new-tweet .counter');
+    const counter = $('.new-tweet__counter');
     //const value = Number(counter);
     let value = 140;
     if (e.keyCode === 8) {
