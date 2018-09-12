@@ -97,13 +97,20 @@ $(() => {
     });
   });
 
-
+  //toggles the text
   function loadTweets() {
     $.ajax('/tweets', {method:'GET'})
     .then(function(data) {
       renderTweet(data);
     });
   }
+
+  //toggles the new tweet form on button click.
+  $('#hide-tweet-form').on('click', function() {
+    $('.new-tweet').slideToggle(500, function() {
+      $('.new-tweet').find('textarea').focus();
+    });
+  });
 
 
   loadTweets();
