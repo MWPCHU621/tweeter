@@ -4,3 +4,6 @@ node_modules/
 
 #the package-lock.json page.
 package-lock.json
+
+#the eslint rules file
+.eslintrc.js
