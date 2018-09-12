@@ -1,4 +1,4 @@
-#nav-bar {
+.nav-bar {
   height: 80px;
   width: 100%;
   background-color: #00a087;
@@ -11,18 +11,34 @@
   z-index:3;
 }
 
-#nav-bar .header {
+.nav-bar__header {
   padding-left: 10px;
   font-size: 200%;
   line-height: 80px;
 }
 
-#nav-bar .logo {
+.nav-bar__logo {
   height:80px;
   width:80px;
 }
 
-#nav-bar .logo, .header {
-  float:left;
+.nav-bar__compose-tweet {
+  margin-top: 15px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: #00a087;
 
+}
+
+.nav-bar__compose-tweet:hover {
+  color:black;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
 }
