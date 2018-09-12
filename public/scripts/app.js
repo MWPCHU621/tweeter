@@ -7,58 +7,10 @@
 // takes in a tweet object, and returns a tweet <article> element containing
 // the entire HTML structure of the tweet.
 
-// Fake data taken from tweets.json
-const data = [
-  {
-    user: {
-      name: 'Newton',
-      avatars: {
-        small: 'https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png',
-        regular: 'https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png',
-        large: 'https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png',
-      },
-      handle: '@SirIsaac',
-    },
-    content: {
-      text: 'If I have seen further it is by standing on the shoulders of giants',
-    },
-    created_at: 1461116232227,
-  },
-  {
-    user: {
-      name: 'Descartes',
-      avatars: {
-        small: 'https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png',
-        regular: 'https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png',
-        large: 'https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png',
-      },
-      handle: '@rd',
-    },
-    content: {
-      text: 'Je pense , donc je suis',
-    },
-    created_at: 1461113959088,
-  },
-  {
-    user: {
-      name: 'Johann von Goethe',
-      avatars: {
-        small: 'https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png',
-        regular: 'https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png',
-        large: 'https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png',
-      },
-      handle: '@johann49',
-    },
-    content: {
-      text: 'Es ist nichts schrecklicher als eine tätige Unwissenheit.',
-    },
-    created_at: 1461113796368,
-  },
-];
 
 function renderTweet(tweets) {
   for (tweet of tweets) {
-    $('.tweet-container').append(createTweetElement(tweet));
+    $('.tweet-container').prepend(createTweetElement(tweet));
   }
 }
 
@@ -71,7 +23,7 @@ function createTweetElement(tweet) {
   const handleName = tweet.user.handle;
   const tweetContent = tweet.content.text;
   const tweetTime = getDays(tweet.created_at);
-  //console.log(tweet.created_at);
+  // console.log(tweet.created_at);
 
   // overarching elements for the tweet container
   const $header = $('<header>').addClass('tweet-header');
@@ -84,6 +36,7 @@ function createTweetElement(tweet) {
   const $headerHandleName = $('<h5>').addClass('tweet-header__handle-name');
   const $content = $('<p>').addClass('tweet-content');
   const $footerTimestamp = $('<div>').addClass('tweet-footer__timestamp');
+  // const $footerIcons = $('<div>').addClass('tweet-footer__social-icons');
 
   // appends the information into their respective elements
   $headerIcon.attr('src', iconImg);
@@ -92,14 +45,14 @@ function createTweetElement(tweet) {
   $content.text(tweetContent);
   $footerTimestamp.text(tweetTime);
 
-  //appends the above elements to their parents
+  // appends the above elements to their parents
   $header.append($headerIcon);
   $header.append($headerUsername);
   $header.append($headerHandleName);
   $body.append($content);
   $footer.append($footerTimestamp);
 
-  //appends the parts of the tweet to the tweet container in order.
+  // appends the parts of the tweet to the tweet container in order.
   $tweet.append($header);
   $tweet.append($body);
   $tweet.append($footer);
@@ -108,10 +61,10 @@ function createTweetElement(tweet) {
 }
 
 function getDays(timeString) {
-  let ms = Number(timeString);
-  let now = Date.now();
-  let difference = now - ms;
-  let fullDaysSinceEpoch = Math.floor(difference/8.64e7);
+  const ms = Number(timeString);
+  const now = Date.now();
+  const difference = now - ms;
+  const fullDaysSinceEpoch = Math.floor(difference / 8.64e7);
 
   // calculates how many days or weeks or months or years depending on
   // fullDaysSinceEpoch number.
@@ -124,15 +77,35 @@ function getDays(timeString) {
   } else {
     return Math.floor(fullDaysSinceEpoch / 365) + ' days ago';
   }
-
-
 }
 
-// const $tweet = createTweetElement(tweetData);
-// console.log($tweet);
-// $('#tweet-container').append($tweet);
-
 $(() => {
-  renderTweet(data);
+
+  $('#new-tweet-ajax-handler').submit(function(event) {
+    event.preventDefault();
+
+      if(!$('#new-tweet-ajax-handler').find('textarea').val()) {
+        alert("NOTHING IN TEXTAREA TO POST");
+        return;
+      } else if($('#new-tweet-ajax-handler').find('textarea').val().length > 140) {
+        alert("YOUR POST IS TOO LONG.");
+        return;
+      }
+    $.ajax('/tweets', {method:'POST', data:$('#new-tweet-ajax-handler').serialize()})
+    .then(function(tweet) {
+      $('.tweet-container').prepend(createTweetElement(tweet));
+    });
+  });
+
+
+  function loadTweets() {
+    $.ajax('/tweets', {method:'GET'})
+    .then(function(data) {
+      renderTweet(data);
+    });
+  }
+
+
+  loadTweets();
 });
 
