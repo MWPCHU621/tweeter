@@ -34,8 +34,9 @@
 
 
     <!-- Page-specific (main) content here -->
-    <main class="container">
 
+    <main class="container">
+      <!-- form element which posts a new tweet. -->
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
         <form id="new-tweet-ajax-handler" action="/tweets" method="POST">
@@ -46,31 +47,7 @@
       </section>
 
       <div class="tweet-container">
-        <article class="tweet">
-
-          <header class="tweet-header">
-            <img class="tweet-header__profile-pic" src="/images/profile.png">
-            <h2 class="tweet-header__user-name">James</h2>
-            <h5 class="tweet-header__handle-name">@james</h5>
-          </header>
-
-          <p class="tweet-content">Little tweet here</p>
-
-          <footer class="tweet-footer">
-            <div class="tweet-footer__timestamp">10 days ago</div>
-            <div class="tweet-footer__social-icons">
-              <i class="fas fa-flag"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="fas fa-heart"></i>
-            </div>
-          </footer>
-
-        </article>
-
-
       </div>
-
     </main>
-
   </body>
 </html>
