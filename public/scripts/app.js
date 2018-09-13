@@ -11,11 +11,29 @@
 function renderTweet(tweets) {
   for (let tweet of tweets) {
     $('.tweet-container').prepend(createTweetElement(tweet));
+
+    // ajax button for toggling tweets
+    const tweetId = '#' + tweet._id;
+    const fullTweetId = tweetId + ' .social-icons__like-button';
+    $(fullTweetId).on('click',(e) => {
+        e.preventDefault();
+        if($(fullTweetId).css('color') === 'rgb(0, 0, 0)') {
+            $.ajax('/tweets/likes', { method: 'POST')
+              .then(() => {
+                $(fullTweetId).css('color', 'red');
+              }
+            });
+        } else {
+            $(fullTweetId).css('color', 'black');
+        }
+      // console.log('IT WORKED!  ' + tweetId);
+    });
   }
 }
 
 function createTweetElement(tweet) {
-  const $tweet = $('<article>').addClass('tweet');
+
+  const $tweet = $('<article>').addClass('tweet').attr('id', tweet._id);
 
   // variables stored for parts of the tweet.
   const username = tweet.user.name;
@@ -23,6 +41,7 @@ function createTweetElement(tweet) {
   const handleName = tweet.user.handle;
   const tweetContent = tweet.content.text;
   const tweetTime = getDays(tweet.created_at);
+  const likeCount = tweet.like_count;
 
   // overarching elements for the tweet container
   const $header = $('<header>').addClass('tweet-header');
@@ -35,7 +54,18 @@ function createTweetElement(tweet) {
   const $headerHandleName = $('<h5>').addClass('tweet-header__handle-name');
   const $content = $('<p>').addClass('tweet-content');
   const $footerTimestamp = $('<div>').addClass('tweet-footer__timestamp');
-  // const $footerIcons = $('<div>').addClass('tweet-footer__social-icons');
+
+  // container for footer icons.
+  const $footerIcons = $('<div>').addClass('tweet-footer__social-icons');
+
+  // social icons like retweet, like, report(flag).
+  const $footerEditIcon = $('<i>').addClass('fas fa-retweet');
+  const $footerFlagIcon = $('<i>').addClass('fas fa-flag');
+  const $footerHeartIcon = $('<i>').addClass('fas fa-heart');
+
+  // like count and buttons
+  const $footerLikeCount = $('<label>').addClass('social-icons__like-count');
+  const $footerLikeButton = $('<button>').addClass('social-icons__like-button');
 
   // appends the information into their respective elements
   $headerIcon.attr('src', iconImg);
@@ -43,18 +73,24 @@ function createTweetElement(tweet) {
   $headerHandleName.text(handleName);
   $content.text(tweetContent);
   $footerTimestamp.text(tweetTime);
+  $footerLikeCount.text(likeCount);
 
   // appends the above elements to their parents
   $header.append($headerIcon);
   $header.append($headerUsername);
   $header.append($headerHandleName);
   $body.append($content);
-  $footer.append($footerTimestamp);
+  $footerLikeButton.append($footerHeartIcon, $footerLikeCount);
+  $footerIcons.append($footerFlagIcon, $footerEditIcon, $footerLikeButton);
+  $footer.append($footerTimestamp, $footerIcons);
 
   // appends the parts of the tweet to the tweet container in order.
   $tweet.append($header);
   $tweet.append($body);
   $tweet.append($footer);
+
+
+
 
   return $tweet;
 }
@@ -83,7 +119,7 @@ function getDays(timeString) {
 $(() => {
   $('#new-tweet-ajax-handler').submit((e) => {
     e.preventDefault();
-    const textBodyValue = $('#new-tweet-ajax-handler').find('textarea').val()
+    const textBodyValue = $('#new-tweet-ajax-handler').find('textarea').val();
     $('.new-tweet__error-message').slideUp(500, () => {
       if (!textBodyValue) {
         $('.new-tweet__error-message').text('');
@@ -92,7 +128,7 @@ $(() => {
         return;
       } else if (textBodyValue.length > 140) {
         $('.new-tweet__error-message').text('');
-        $('.new-tweet__error-message').text('ERROR: text length over limit.');
+        $('.new-tweet__error-message').text('ERROR: tweet length over limit.');
         $('.new-tweet__error-message').slideDown(500);
         return;
       }
@@ -100,9 +136,11 @@ $(() => {
       $.ajax('/tweets', { method: 'POST', data: $('#new-tweet-ajax-handler').serialize() })
         .then((tweet) => {
           $('.tweet-container').prepend(createTweetElement(tweet));
-        });
+      });
     });
   });
+
+  $('#toggleLike');
 
   // toggles the new tweet form on button click.
   $('#hide-tweet-form').on('click', () => {
@@ -122,6 +160,8 @@ $(() => {
         renderTweet(data);
       });
   }
+
+
 
   /* given a status code of 0 or 1,
     return the appropriate label element containing the right error message

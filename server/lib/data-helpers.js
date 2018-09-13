@@ -22,5 +22,10 @@ module.exports = function makeDataHelpers(db) {
           callback(null, result);
       });
     },
+
+    // save likes
+    toggleLikes: (callback) => {
+      db.collection('tweets').find('like_count')
+    }
   },
 }

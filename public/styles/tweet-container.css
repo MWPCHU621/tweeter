@@ -75,6 +75,10 @@
   transition: opacity .1s linear;
 }
 
+..tweet-footer__social-icons .like {
+
+}
+
 .tweet-footer__social-icons .fa-retweet {
   padding-left: 5px;
   padding-right: 5px;
