@@ -8,7 +8,7 @@
   position: fixed;
   top: 0;
   overflow: hidden;
-  z-index:3;
+  z-index: 3;
 }
 
 .nav-bar__header {
@@ -18,8 +18,8 @@
 }
 
 .nav-bar__logo {
-  height:80px;
-  width:80px;
+  height: 80px;
+  width: 80px;
 }
 
 .nav-bar__compose-tweet {
@@ -28,11 +28,10 @@
   border-radius: 5px;
   border: 1px solid black;
   color: #00a087;
-
 }
 
 .nav-bar__compose-tweet:hover {
-  color:black;
+  color: black;
 }
 
 .float-left {

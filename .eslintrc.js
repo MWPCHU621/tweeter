@@ -1,7 +1,7 @@
-// module.exports = {
-//   "extends": "airbnb-base",
-//   rules: {
-//     "no-console":0,
-//     "no-plusplus":0,
-//   }
-// };
+module.exports = {
+  "extends": "airbnb-base",
+  rules: {
+    "no-console":0,
+    "no-plusplus":0,
+  }
+};
