@@ -48,5 +48,16 @@
   and (min-device-width: 414px)
   and (max-device-width: 736px)
   and (-webkit-min-device-pixel-ratio: 3) {
-    height:
+  .nav-bar {
+    height: 20%;
+    width: 100%;
+    background-color: #00a087;
+    color: #e8fdff;
+    padding-left: 2em;
+    padding-right: 2em;
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    z-index: 3;
+  }
 }
