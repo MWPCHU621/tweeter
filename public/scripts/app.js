@@ -15,20 +15,28 @@ function renderTweet(tweets) {
     // ajax button for toggling tweets
     const tweetId = '#' + tweet._id;
     const fullTweetId = tweetId + ' .social-icons__like-button';
-    $(fullTweetId).on('click',(e) => {
-        e.preventDefault();
-        if($(fullTweetId).css('color') === 'rgb(0, 0, 0)') {
-            $.ajax('/tweets/likes', { method: 'POST')
-              .then(() => {
-                $(fullTweetId).css('color', 'red');
-              }
-            });
-        } else {
+    $(fullTweetId).on('click', (e) => {
+      e.preventDefault();
+      if ($(fullTweetId).css('color') === 'rgb(0, 0, 0)') {
+        $.ajax('/tweets/likes', { method: 'POST', data: { id: tweet._id, value: 1 } })
+          .then((t) => {
+            $(fullTweetId).css('color', 'red');
+            updateLikeCount(t.like_count);
+          });
+      } else {
+        $.ajax('/tweets/likes', { method: 'POST', data: { id: tweet._id, value: -1 } })
+          .then((t) => {
             $(fullTweetId).css('color', 'black');
-        }
-      // console.log('IT WORKED!  ' + tweetId);
+            updateLikeCount(t.like_count);
+          });
+      }
     });
   }
+}
+
+function updateLikeCount(num) {
+    console.log(num);
+    $('.social-icons__like-count').text(num);
 }
 
 function createTweetElement(tweet) {
@@ -136,7 +144,7 @@ $(() => {
       $.ajax('/tweets', { method: 'POST', data: $('#new-tweet-ajax-handler').serialize() })
         .then((tweet) => {
           $('.tweet-container').prepend(createTweetElement(tweet));
-      });
+        });
     });
   });
 
