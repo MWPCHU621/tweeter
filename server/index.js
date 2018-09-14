@@ -2,7 +2,7 @@
 
 // Basic express setup:
 require('dotenv').config();
-const PORT = 8080;
+// const PORT = 8080;
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -16,8 +16,8 @@ app.use(express.static('public'));
 const {MongoClient} = require("mongodb");
 const MONGODB_URI = process.env.MONGODB_URI;
 
-app.listen(PORT, () => {
-  console.log('Example app listening on port ' + PORT);
+app.listen(process.env.PORT || 8080, () => {
+  console.log('Example app listening on port ');
 });
 
 //connects to the local mongodb database.
