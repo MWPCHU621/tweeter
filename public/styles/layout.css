@@ -40,3 +40,26 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+/* Portrait and Landscape */
+@media only screen
+  and (min-device-width: 414px)
+  and (max-device-width: 736px)
+  and (-webkit-min-device-pixel-ratio: 3) {
+  body {
+  margin: 0;
+  color: #244751;
+  background-color: #eee;
+  font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  .container {
+  margin: 80px auto 0 auto;
+  width: 80%
+  min-height: 40%;
+  background-color: white;
+  padding: 50px 2em 0 2em;
+  overflow: hidden;
+  z-index: 2;
+  }
+ }
