@@ -7,6 +7,7 @@ const tweetsRoutes  = express.Router();
 
 module.exports = function (DataHelpers) {
 
+  //GET method for getting tweets.
   tweetsRoutes.get('/', (req, res) => {
     DataHelpers.getTweets((err, tweets) => {
       if (err) {
@@ -17,6 +18,7 @@ module.exports = function (DataHelpers) {
     });
   });
 
+  //CREATES A NEW TWEET WITH A UNIQUE USER ID AND SAVES TO DB.
   tweetsRoutes.post('/', (req, res) => {
     if (!req.body.text) {
       res.status(400).json({ error: 'invalid request: no data in POST body'});
@@ -54,18 +56,15 @@ module.exports = function (DataHelpers) {
   //   });
   // });
 
+  // TOGGLES THE LIKE COUNT INCREMENTATION AND DECREMENTATION.
+  tweetsRoutes.post('/likes', (req, res) => {
+    //console.log(req.body);
 
-  tweetsRoutes.post('/likes' (req, res) => {
-    if (err) {
-      res.status(400).json({ error: err.message, source: 'postLikes @ tweets.js'});
-      return;
-    }
-
-    DataHelpers.toggleLike((err, tweets) => {
+    DataHelpers.toggleLikes(req, (err, tweet) => {
       if (err) {
         res.status(500).json({ error: err.message, source: 'postLikes @ tweets.js'});
       } else {
-        res.status(200).send();
+        res.status(200).json(tweet);
       }
     });
   });
