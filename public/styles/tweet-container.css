@@ -6,8 +6,6 @@
   margin-top: 2em;
 }
 
-
-
 /*HEADER RELATED CSS*/
 
 .tweet-header {
@@ -75,8 +73,16 @@
   transition: opacity .1s linear;
 }
 
-..tweet-footer__social-icons .like {
+.social-icons__like-button {
+  border: none;
+  background-color: white;
+  color: #244751;
+  padding: 0;
 
+}
+
+.social-icons__like-button:focus {
+  outline:0;
 }
 
 .tweet-footer__social-icons .fa-retweet {

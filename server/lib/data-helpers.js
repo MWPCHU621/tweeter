@@ -24,9 +24,10 @@ module.exports = function makeDataHelpers(db) {
         });
     },
 
-    // updates like_count for a certain tweetin database by value,
+    // updates like_count for a certain tweet in database by value,
     // which is passed in through tweets.js
     toggleLikes: (tweet, callback) => {
+      //console.log(tweet.body.id);
       db.collection('tweets').findOneAndUpdate({ _id: ObjectId(tweet.body.id) },
         { $inc: { like_count: Number(tweet.body.value) } },
         { returnOriginal: false }, (err, result) => {

@@ -15,28 +15,31 @@ function renderTweet(tweets) {
     // ajax button for toggling tweets
     const tweetId = '#' + tweet._id;
     const fullTweetId = tweetId + ' .social-icons__like-button';
+    console.log($(fullTweetId).css('color'));
     $(fullTweetId).on('click', (e) => {
       e.preventDefault();
-      if ($(fullTweetId).css('color') === 'rgb(0, 0, 0)') {
+      if ($(fullTweetId).css('color') === 'rgb(36, 71, 81)') {
+
         $.ajax('/tweets/likes', { method: 'POST', data: { id: tweet._id, value: 1 } })
           .then((t) => {
             $(fullTweetId).css('color', 'red');
-            updateLikeCount(t.like_count);
+            updateLikeCount(t.like_count, tweetId);
           });
       } else {
         $.ajax('/tweets/likes', { method: 'POST', data: { id: tweet._id, value: -1 } })
           .then((t) => {
-            $(fullTweetId).css('color', 'black');
-            updateLikeCount(t.like_count);
+            $(fullTweetId).css('color', '#244751');
+            updateLikeCount(t.like_count, tweetId);
           });
       }
     });
   }
 }
 
-function updateLikeCount(num) {
+function updateLikeCount(num, id) {
     //console.log(num);
-    $('.social-icons__like-count').text(num);
+    let chainSelector = id + ' .social-icons__like-count';
+    $(chainSelector).text(num);
 }
 
 function createTweetElement(tweet) {
