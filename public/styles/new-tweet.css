@@ -31,3 +31,33 @@
   padding: 5px;
   display: none;
 }
+
+@media only screen
+  and (min-device-width: 414px)
+  and (max-device-width: 736px)
+  and (-webkit-min-device-pixel-ratio: 3) {
+
+  .new-tweet {
+    margin-top: 40px;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 7px;
+    border: 1px solid lightgrey;
+  }
+
+  .new-tweet__error-message {
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
+    display: none;
+  }
+
+  h2 {
+    font-size: 200%;
+    padding-bottom: 10px;
+  }
+
+}

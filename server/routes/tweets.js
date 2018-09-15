@@ -58,7 +58,6 @@ module.exports = function (DataHelpers) {
 
   // TOGGLES THE LIKE COUNT INCREMENTATION AND DECREMENTATION.
   tweetsRoutes.post('/likes', (req, res) => {
-    //console.log(req.body);
 
     DataHelpers.toggleLikes(req, (err, tweet) => {
       if (err) {

@@ -49,7 +49,7 @@
   and (max-device-width: 736px)
   and (-webkit-min-device-pixel-ratio: 3) {
   .nav-bar {
-    height: 20%;
+    height: 8%;
     width: 100%;
     background-color: #00a087;
     color: #e8fdff;
@@ -60,4 +60,38 @@
     overflow: hidden;
     z-index: 3;
   }
+
+  .nav-bar__header {
+    padding-left: 10px;
+    font-size: 400%;
+    line-height: 130px;
+  }
+
+  .nav-bar__logo {
+    height: 100%;
+    width: 15%;
+  }
+
+  .nav-bar__compose-tweet {
+    padding: 10px 15px 10px 15px;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: #00a087;
+    height: 100%;
+    width: 100px;
+  }
+
+  .nav-bar__buttons {
+    margin: 10px auto 10px auto;
+    height:60%;
+  }
+
+  .float-left {
+    float: left;
+  }
+
+  .float-right {
+    float: right;
+  }
+
 }

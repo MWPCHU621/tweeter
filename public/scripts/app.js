@@ -35,7 +35,7 @@ function renderTweet(tweets) {
 }
 
 function updateLikeCount(num) {
-    console.log(num);
+    //console.log(num);
     $('.social-icons__like-count').text(num);
 }
 
