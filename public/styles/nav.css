@@ -22,7 +22,7 @@
   width: 80px;
 }
 
-.nav-bar__compose-tweet {
+.nav-bar__compose-tweet, .nav-bar__login, .nav-bar__logout {
   margin-top: 15px;
   padding: 10px 15px 10px 15px;
   border-radius: 5px;
@@ -30,9 +30,10 @@
   color: #00a087;
 }
 
-.nav-bar__compose-tweet:hover {
+.nav-bar__compose-tweet:hover, .nav-bar__login:hover, .nav-bar__logout:hover {
   color: black;
 }
+
 
 .float-left {
   float: left;

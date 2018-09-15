@@ -5,22 +5,30 @@ require('dotenv').config();
 // const PORT = 8080;
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['this is my secret key'],
 
-// The in-memory database of tweets. It's a basic object with an array in it.
-//const db = require('./lib/in-memory-db');
-const {MongoClient} = require("mongodb");
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
+// our mlab which is set up to use mongodb.
+const { MongoClient } = require('mongodb');
+
 const MONGODB_URI = process.env.MONGODB_URI;
 
 app.listen(process.env.PORT || 8080, () => {
   console.log('Example app listening on port ');
 });
 
-//connects to the local mongodb database.
+// connects to our mlab mongodb database.
 MongoClient.connect(MONGODB_URI, (err, db) => {
   if (err) {
     console.error(`Failed to connect: ${MONGODB_URI}`);
@@ -44,5 +52,4 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   // Mount the tweets routes at the "/tweets" path prefix:
   app.use('/tweets', tweetsRoutes);
-
 });
